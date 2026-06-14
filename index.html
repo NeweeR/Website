@@ -3,7 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Main title</title>
+<title>Qalweren | Minecraft Technical Artist</title>
+
+<!-- Font Awesome dla ikony Discord -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
 <style>
 :root{
   --bg: #121315;
@@ -23,6 +27,7 @@ body {
   color: var(--text);
   line-height: 1.65;
 }
+
 /* SCROLLBAR */
 ::-webkit-scrollbar { width: 9px; }
 ::-webkit-scrollbar-track { background: #1a1b1f; }
@@ -89,6 +94,9 @@ body {
   border-radius:12px;
   font-weight:700;
   transition:.3s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 .discord-btn:hover {
   transform: translateY(-4px);
@@ -154,6 +162,7 @@ body {
   color: var(--purple-light);
   text-shadow: 0 4px 20px rgba(168, 85, 247, 0.25);
 }
+
 /* PROJECTS */
 .cards {
   display:grid;
@@ -172,6 +181,7 @@ body {
   box-shadow: 0 30px 60px rgba(168, 85, 247, 0.22);
   border-color: var(--purple);
 }
+
 /* ABOUT */
 .about {
   background: var(--card);
@@ -183,6 +193,7 @@ body {
   margin: 0 auto;
   border: 1px solid rgba(168, 85, 247, 0.18);
 }
+
 /* FOOTER */
 .footer {
   background: #0a0a0b;
@@ -204,6 +215,7 @@ body {
 </style>
 </head>
 <body>
+
   <nav class="navbar">
     <div class="navbar-inner">
       <div class="nav-links">
@@ -211,7 +223,10 @@ body {
         <a href="#projects">PROJECTS</a>
         <a href="#about">ABOUT ME</a>
       </div>
-      <a href="#" class="discord-btn">Join Discord</a>
+      <a href="#" class="discord-btn">
+        <i class="fa-brands fa-discord"></i>
+        Join Discord
+      </a>
     </div>
   </nav>
 
@@ -279,7 +294,7 @@ body {
       let typeSpeed = 50;
 
       if (!isDeleting && charIndex === fullText.length) {
-        typeSpeed = 1800; // pauza po napisaniu
+        typeSpeed = 1800;
         isDeleting = true;
       } else if (isDeleting && charIndex === 0) {
         isDeleting = false;
@@ -290,7 +305,6 @@ body {
       setTimeout(type, typeSpeed);
     }
 
-    // Start typing effect
     setTimeout(type, 800);
 
     // Smooth scroll + active nav
