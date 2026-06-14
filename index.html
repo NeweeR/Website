@@ -214,28 +214,24 @@ body {
 .nav-arrows {
   position: absolute;
   top: 50%;
-  width: 100%;
+  left: -90px;
+  right: -90px;
+  transform: translateY(-50%);
   display: flex;
   justify-content: space-between;
-  padding: 0 70px;
-  z-index: 20;
+  z-index: 50;
   pointer-events: none;
 }
 .nav-arrows button {
-  pointer-events: all;
-  background: rgba(0,0,0,0.75);
-  border: none;
-  color: white;
-  width: 58px;
-  height: 58px;
+  pointer-events: auto;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
-  font-size: 1.85rem;
+  border: none;
   cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  background: rgba(0,0,0,.8);
+  color: #fff;
+  font-size: 1.8rem;
 }
 .nav-arrows button:hover {
   background: var(--purple);
@@ -481,82 +477,104 @@ body {
     const carousel = document.getElementById('carousel');
     const progressBar = document.getElementById('progressBar');
 
-    function resetProgress() {
-      progressBar.style.transition = 'none';
-      progressBar.style.width = '0%';
-      setTimeout(() => {
-        progressBar.style.transition = 'width 10s linear';
-        progressBar.style.width = '100%';
-      }, 30);
-    }
+function resetProgress() {
+  progressBar.style.transition = 'none';
+  progressBar.style.width = '0%';
 
-    function renderCarousel() {
-      const prev = (current - 1 + projects.length) % projects.length;
-      const next = (current + 1) % projects.length;
+  setTimeout(() => {
+    progressBar.style.transition = 'width 10s linear';
+    progressBar.style.width = '100%';
+  }, 30);
+}
 
-      carousel.innerHTML = `
-        <div class="card side" data-index="${prev}">
-          <div class="card-image"><img src="${projects[prev].img}" alt=""></div>
-          <div class="card-content"><h3>${projects[prev].title}</h3></div>
-        </div>
-        
-        <div class="card main" data-index="${current}">
-          <div class="card-image"><img src="${projects[current].img}" alt=""></div>
-          <div class="card-content">
-            <h3>${projects[current].title}</h3>
-            <span class="free-badge">FREE</span>
-            <a href="#" class="github-btn">GitHub →</a>
-          </div>
-        </div>
-        
-        <div class="card side" data-index="${next}">
-          <div class="card-image"><img src="${projects[next].img}" alt=""></div>
-          <div class="card-content"><h3>${projects[next].title}</h3></div>
-        </div>
-      `;
-    }
+function renderCarousel() {
+  const prev = (current - 1 + projects.length) % projects.length;
+  const next = (current + 1) % projects.length;
 
-    function startAutoSlide() {
-      clearInterval(timer);
-      timer = setInterval(() => {
-        current = (current + 1) % projects.length;
-        renderCarousel();
-        resetProgress();
-      }, 10000);
-    }
+  carousel.innerHTML = `
+    <div class="card side" data-index="${prev}">
+      <div class="card-image"><img src="${projects[prev].img}" alt=""></div>
+      <div class="card-content"><h3>${projects[prev].title}</h3></div>
+    </div>
+    
+    <div class="card main" data-index="${current}">
+      <div class="card-image"><img src="${projects[current].img}" alt=""></div>
+      <div class="card-content">
+        <h3>${projects[current].title}</h3>
+        <span class="free-badge">FREE</span>
+        <a href="#" class="github-btn">GitHub →</a>
+      </div>
+    </div>
+    
+    <div class="card side" data-index="${next}">
+      <div class="card-image"><img src="${projects[next].img}" alt=""></div>
+      <div class="card-content"><h3>${projects[next].title}</h3></div>
+    </div>
+  `;
 
-    document.getElementById('nextBtn').addEventListener('click', () => {
-      current = (current + 1) % projects.length;
+  /* Klikalne wszystkie karty */
+  carousel.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('click', () => {
+      current = Number(card.dataset.index);
       renderCarousel();
       resetProgress();
       startAutoSlide();
     });
+  });
+}
 
-    document.getElementById('prevBtn').addEventListener('click', () => {
-      current = (current - 1 + projects.length) % projects.length;
-      renderCarousel();
-      resetProgress();
-      startAutoSlide();
-    });
+function startAutoSlide() {
+  clearInterval(timer);
 
+  timer = setInterval(() => {
+    current = (current + 1) % projects.length;
     renderCarousel();
     resetProgress();
-    startAutoSlide();
+  }, 10000);
+}
 
-    window.addEventListener('scroll', () => {
-      const sections = ['home', 'projects', 'about'];
-      let currentSection = 'home';
-      sections.forEach(id => {
-        const section = document.getElementById(id);
-        if (section && scrollY >= section.offsetTop - 200) currentSection = id;
-      });
+document.getElementById('nextBtn').addEventListener('click', () => {
+  current = (current + 1) % projects.length;
+  renderCarousel();
+  resetProgress();
+  startAutoSlide();
+});
 
-      document.querySelectorAll('.nav-links a').forEach(link => {
-        link.classList.toggle('active', link.getAttribute('href') === `#${currentSection}`);
-      });
+document.getElementById('prevBtn').addEventListener('click', () => {
+  current = (current - 1 + projects.length) % projects.length;
+  renderCarousel();
+  resetProgress();
+  startAutoSlide();
+});
 
-      document.getElementById('navbar').classList.toggle('shrink', scrollY > 80);
-    });
+renderCarousel();
+resetProgress();
+startAutoSlide();
+
+window.addEventListener('scroll', () => {
+  const sections = ['home', 'projects', 'about'];
+  let currentSection = 'home';
+
+  sections.forEach(id => {
+    const section = document.getElementById(id);
+
+    if (section && scrollY >= section.offsetTop - 200) {
+      currentSection = id;
+    }
+  });
+
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.classList.toggle(
+      'active',
+      link.getAttribute('href') === `#${currentSection}`
+    );
+  });
+
+  document.getElementById('navbar').classList.toggle(
+    'shrink',
+    scrollY > 80
+  );
+});
   </script>
 </body>
 </html>
