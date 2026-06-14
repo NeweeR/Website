@@ -323,54 +323,54 @@ body {
 /* RESPONSIVE */
 @media(max-width:768px){
 
-  .about-section{
+  .cards{
+    height:auto;
+    padding:0 12px;
+  }
+
+  .carousel{
+    position:relative;
+  }
+
+  .card.side{
+    display:none !important;
+  }
+
+  .card.main{
     width:100%;
-    max-width:none;
-
-    /* usuwa tło bp_aboutme na telefonach */
-    background: linear-gradient(
-      rgba(17,18,22,.96),
-      rgba(17,18,22,.98)
-    );
-
-    padding:50px 22px;
+    max-width:360px;
+    height:420px;
     margin:0 auto;
+    transform:none;
   }
 
-  .about-content{
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    gap:35px;
+  .card.main:hover{
+    transform:none;
   }
 
-  .about-avatar{
+  .nav-arrows{
+    position:absolute;
+    top:50%;
+    left:50%;
     width:100%;
-    text-align:center;
+    max-width:360px;
+    transform:translate(-50%,-50%);
+    padding:0 8px;
+    z-index:100;
   }
 
-  .about-avatar img{
-    width:150px;
-    height:150px;
+  .nav-arrows button{
+    width:42px;
+    height:42px;
+    font-size:1.2rem;
+    background:rgba(0,0,0,.85);
+    backdrop-filter:blur(6px);
   }
 
-  .about-text{
-    flex:none;
+  .progress-wrapper{
+    max-width:360px;
     width:100%;
-    min-width:0; /* ważne */
-    text-align:center;
-  }
-
-  .about-section .role{
-    text-align:center;
-    margin-bottom:25px;
-  }
-
-  .about-section p{
-    text-align:center;
-    font-size:1.05rem;
-    line-height:1.8;
+    margin-top:20px;
   }
 }
 </style>
