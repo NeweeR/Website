@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Qalweren | Minecraft Technical Artist</title>
 
+<!-- Outfit Font -->
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
 <style>
@@ -17,6 +20,7 @@
   --text: #f0f0f0;
   --text-secondary: #d1d5db;
   --header: #100f12;
+  --title-font: "Outfit", sans-serif;
 }
 * { margin:0; padding:0; box-sizing:border-box; }
 body {
@@ -46,8 +50,10 @@ body {
 }
 .nav-links { display:flex; gap:40px; }
 .nav-links a {
+  font-family: var(--title-font);
   position:relative; text-decoration:none; color: var(--text); font-weight:700;
   padding:8px 4px; transition: color .3s;
+  font-size: 1.05rem;
 }
 .nav-links a::after {
   content:''; position:absolute; left:50%; bottom:-6px; width:0; height:3px;
@@ -78,13 +84,17 @@ body {
   background: radial-gradient(circle at center, transparent 35%, rgba(18,19,21,0.75) 100%);
 }
 .mainphoto h1 {
-  font-size: clamp(68px, 9vw, 110px);
-  margin-bottom: 12px;
+  font-family: var(--title-font);
+  font-size: clamp(72px, 9.5vw, 118px);
+  font-weight: 800;
+  margin-bottom: 16px;
   text-shadow: 0 8px 40px rgba(0,0,0,0.9);
-  letter-spacing: -4px;
+  letter-spacing: -5px;
   color: #fff;
   z-index: 2;
 }
+
+/* Typing Effect */
 .typing {
   font-size: 1.55rem; color: var(--purple-light); min-height: 2em;
   font-weight: 500; z-index: 2;
@@ -92,10 +102,10 @@ body {
 .typing::after { content: '|'; animation: blink 0.7s infinite; }
 @keyframes blink { 50% { opacity: 0; } }
 
-/* ABOUT ME - Z TŁEM ZE ZDJĘCIA */
+/* ABOUT ME */
 .about-section {
   background: 
-    linear-gradient(rgba(17, 18, 22, 0.85), rgba(17, 18, 22, 0.92)),
+    linear-gradient(rgba(17, 18, 22, 0.88), rgba(17, 18, 22, 0.94)),
     url('assets/image/bp_aboutme.webp') center/cover no-repeat;
   border-radius: 20px;
   padding: 90px 60px;
@@ -107,9 +117,12 @@ body {
   overflow: hidden;
 }
 .about-section h2 {
-  font-size: 3.4rem;
+  font-family: var(--title-font);
+  font-size: 3.6rem;
+  font-weight: 800;
   margin-bottom: 12px;
   color: #fff;
+  letter-spacing: -2px;
 }
 .about-section .role {
   color: var(--purple-light);
@@ -125,9 +138,16 @@ body {
   margin: 0 auto 28px;
 }
 
-/* Reszta */
-.container { max-width:1240px; margin:auto; padding:0 28px; }
+/* PROJECTS */
 .section { padding: 130px 0; }
+.section h2 {
+  font-family: var(--title-font);
+  font-size: 3.1rem;
+  font-weight: 700;
+  margin-bottom: 80px; /* Przesunięte w górę */
+  text-align: center;
+  color: var(--purple-light);
+}
 .cards {
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
@@ -153,8 +173,9 @@ body {
 
 @media(max-width:768px) {
   .navbar-inner { flex-direction:column; gap:24px; }
-  .mainphoto h1 { font-size: 68px; }
+  .mainphoto h1 { font-size: 72px; }
   .section { padding: 90px 0; }
+  .section h2 { margin-bottom: 60px; }
   .about-section { padding: 70px 30px; }
 }
 </style>
@@ -190,7 +211,6 @@ body {
       </div>
     </section>
 
-    <!-- ABOUT ME -->
     <section id="about" class="section">
       <div class="about-section">
         <h2>QALWEREN</h2>
