@@ -1,1 +1,162 @@
-Hello World
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Custom123 Portfolio</title>
+<style>
+:root{
+--bg:#080b14;
+--card:#111827;
+--purple:#8b5cf6;
+--discord:#5865F2;
+--text:#fff;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);font-family:Inter,Arial,sans-serif;color:var(--text)}
+.container{max-width:1200px;margin:auto;padding:0 24px}
+
+/* NAVBAR */
+.navbar{padding:28px 0}
+.navbar-inner{display:flex;justify-content:space-between;align-items:center}
+
+.nav-links{display:flex;gap:34px}
+
+.nav-links a{
+position:relative;
+text-decoration:none;
+color:#fff;
+font-weight:700;
+padding:8px 0;
+}
+
+.nav-links a::after{
+content:'';
+position:absolute;
+left:50%;
+bottom:-8px;
+width:0;
+height:3px;
+background:#fff;
+transform:translateX(-50%);
+transition:.25s ease;
+}
+
+.nav-links a:hover::after{
+width:100%;
+}
+
+.nav-links a.active{
+color:var(--purple);
+}
+
+.nav-links a.active::after{
+width:100%;
+background:var(--purple);
+}
+
+.discord-btn{
+background:var(--discord);
+color:#fff;
+text-decoration:none;
+padding:12px 18px;
+border-radius:10px;
+font-weight:700;
+transition:.2s;
+}
+
+.discord-btn:hover{
+transform:translateY(-2px);
+}
+
+/* HERO */
+.hero{
+height:280px;
+border-radius:18px;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+text-align:center;
+background:
+linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.65)),
+url('https://picsum.photos/1600/900?blur=1') center/cover;
+}
+
+.hero h1{
+font-size:72px;
+margin-bottom:10px;
+}
+
+.hero p{
+opacity:.8;
+}
+
+/* CONTENT */
+.section{padding:60px 0}
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:20px;
+}
+.card{
+background:var(--card);
+padding:24px;
+border-radius:14px;
+}
+
+@media(max-width:768px){
+.navbar-inner{
+flex-direction:column;
+gap:20px;
+}
+.hero h1{
+font-size:42px;
+}
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<nav class="navbar">
+<div class="navbar-inner">
+
+<div class="nav-links">
+<a href="#" class="active">HOME</a>
+<a href="#">LINKS</a>
+<a href="#">ABOUT ME</a>
+</div>
+
+<a href="#" class="discord-btn">Discord</a>
+
+</div>
+</nav>
+
+<section class="hero">
+<h1>CUSTOM123</h1>
+<p>Developer • Designer • Portfolio</p>
+</section>
+
+<section class="section">
+<div class="cards">
+<div class="card"><h3>Project One</h3></div>
+<div class="card"><h3>Project Two</h3></div>
+<div class="card"><h3>Project Three</h3></div>
+</div>
+</section>
+
+</div>
+
+<script>
+document.querySelectorAll('.nav-links a').forEach(link=>{
+link.addEventListener('click',()=>{
+document.querySelectorAll('.nav-links a').forEach(x=>x.classList.remove('active'));
+link.classList.add('active');
+});
+});
+</script>
+
+</body>
+</html>
