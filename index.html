@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Custom123 | Minecraft Technical Artist</title>
+<title>Main title</title>
 <style>
 :root{
   --bg: #121315;
@@ -16,7 +16,6 @@
   --text-secondary: #d1d5db;
   --header: #100f12;
 }
-
 * { margin:0; padding:0; box-sizing:border-box; }
 body {
   background: var(--bg);
@@ -24,13 +23,12 @@ body {
   color: var(--text);
   line-height: 1.65;
 }
-
 /* SCROLLBAR */
 ::-webkit-scrollbar { width: 9px; }
 ::-webkit-scrollbar-track { background: #1a1b1f; }
-::-webkit-scrollbar-thumb { 
-  background: var(--purple); 
-  border-radius: 10px; 
+::-webkit-scrollbar-thumb {
+  background: var(--purple);
+  border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover { background: var(--purple-light); }
 
@@ -106,7 +104,7 @@ body {
   justify-content:center;
   flex-direction:column;
   text-align:center;
-  background: 
+  background:
     linear-gradient(rgba(18,19,21,0.68), rgba(18,19,21,0.88)),
     url('assets/image/bp_mainphoto.webp') center/cover no-repeat fixed;
   position: relative;
@@ -125,18 +123,28 @@ body {
   letter-spacing: -3px;
   color: #fff;
 }
-.mainphoto p {
+
+/* Typing Effect */
+.typing {
   font-size: 1.5rem;
-  color: var(--text-secondary);
-  max-width: 760px;
-  opacity: 0.95;
+  color: var(--purple-light);
+  min-height: 1.8em;
+  font-weight: 500;
+}
+.typing::after {
+  content: '|';
+  animation: blink 0.7s infinite;
+  color: var(--purple-light);
+}
+@keyframes blink {
+  50% { opacity: 0; }
 }
 
 /* SEKCJE */
-.container { 
-  max-width:1240px; 
-  margin:auto; 
-  padding:0 28px; 
+.container {
+  max-width:1240px;
+  margin:auto;
+  padding:0 28px;
 }
 .section { padding: 120px 0; }
 .section h2 {
@@ -146,7 +154,6 @@ body {
   color: var(--purple-light);
   text-shadow: 0 4px 20px rgba(168, 85, 247, 0.25);
 }
-
 /* PROJECTS */
 .cards {
   display:grid;
@@ -165,7 +172,6 @@ body {
   box-shadow: 0 30px 60px rgba(168, 85, 247, 0.22);
   border-color: var(--purple);
 }
-
 /* ABOUT */
 .about {
   background: var(--card);
@@ -177,7 +183,6 @@ body {
   margin: 0 auto;
   border: 1px solid rgba(168, 85, 247, 0.18);
 }
-
 /* FOOTER */
 .footer {
   background: #0a0a0b;
@@ -199,7 +204,6 @@ body {
 </style>
 </head>
 <body>
-
   <nav class="navbar">
     <div class="navbar-inner">
       <div class="nav-links">
@@ -212,8 +216,8 @@ body {
   </nav>
 
   <section id="home" class="mainphoto">
-    <h1>CUSTOM123</h1>
-    <p>Technical Artist &nbsp;•&nbsp; Asset Developer for Nexo &amp; CraftEngine</p>
+    <h1>QALWEREN</h1>
+    <p id="typing-text" class="typing"></p>
   </section>
 
   <div class="container">
@@ -229,8 +233,9 @@ body {
     <section id="about" class="section">
       <h2>About Me</h2>
       <div class="about">
-        <p>I am a Technical Artist and Asset Developer specializing in production-ready 3D content for Minecraft. I bridge the gap between creative design and engine implementation, delivering optimized models that integrate seamlessly into <strong>Nexo</strong> and <strong>CraftEngine</strong> frameworks.</p>
-        <p style="margin-top:28px">My focus is on creating high-quality, lightweight assets that elevate gameplay mechanics without sacrificing server performance or network stability.</p>
+        <p>Hi, I'm Qalweren, a Minecraft Technical Artist and Asset Developer. I specialize in creating optimized, production-ready custom items, blocks, mechanics, and entities specifically tailored for Nexo and CraftEngine. My goal is to help server owners elevate their gameplay experience with high-quality, seamless custom content without sacrificing server performance.</p>
+       
+        <p style="margin-top:28px">My focus is on creating high-quality, lightweight assets that elevate gameplay mechanics while maintaining excellent server performance and network stability.</p>
       </div>
     </section>
   </div>
@@ -243,13 +248,57 @@ body {
   </footer>
 
   <script>
+    // Typing Effect
+    const texts = [
+      "Welcome to my portfolio!",
+      "Minecraft Technical Artist",
+      "Nexo & CraftEngine Specialist",
+      "Production-Ready Assets",
+      "Optimized Custom Content"
+    ];
+
+    let currentIndex = 0;
+    const typingElement = document.getElementById('typing-text');
+    let isDeleting = false;
+    let currentText = '';
+    let charIndex = 0;
+
+    function type() {
+      const fullText = texts[currentIndex];
+
+      if (isDeleting) {
+        currentText = fullText.substring(0, charIndex - 1);
+        charIndex--;
+      } else {
+        currentText = fullText.substring(0, charIndex + 1);
+        charIndex++;
+      }
+
+      typingElement.textContent = currentText;
+
+      let typeSpeed = 50;
+
+      if (!isDeleting && charIndex === fullText.length) {
+        typeSpeed = 1800; // pauza po napisaniu
+        isDeleting = true;
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        currentIndex = (currentIndex + 1) % texts.length;
+        typeSpeed = 400;
+      }
+
+      setTimeout(type, typeSpeed);
+    }
+
+    // Start typing effect
+    setTimeout(type, 800);
+
     // Smooth scroll + active nav
     document.querySelectorAll('.nav-links a').forEach(link => {
       link.addEventListener('click', e => {
         e.preventDefault();
         document.querySelectorAll('.nav-links a').forEach(x => x.classList.remove('active'));
         link.classList.add('active');
-
         const target = document.querySelector(link.getAttribute('href'));
         if (target) {
           const navH = document.querySelector('.navbar').offsetHeight;
