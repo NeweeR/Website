@@ -24,6 +24,7 @@ body {
   font-family: Inter, system-ui, sans-serif;
   color: var(--text);
   line-height: 1.65;
+  scroll-behavior: smooth;
 }
 
 /* NAVBAR */
@@ -33,7 +34,9 @@ body {
   backdrop-filter: blur(12px);
   padding: 20px 0;
   border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+  transition: all 0.4s ease;
 }
+.navbar.shrink { padding: 12px 0; }
 .navbar-inner {
   display:flex; justify-content:space-between; align-items:center;
   max-width:1240px; margin:auto; padding:0 28px;
@@ -84,91 +87,23 @@ body {
   letter-spacing: -5px;
   color: #fff;
   z-index: 2;
+  opacity: 0;
+  transform: translateY(40px);
+  animation: fadeUp 1s forwards 0.3s;
 }
-
-/* Typing */
 .typing {
   font-size: 1.55rem; color: var(--purple-light); min-height: 2em;
   font-weight: 500; z-index: 2;
+  opacity: 0;
+  animation: fadeUp 1s forwards 0.9s;
+}
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
 }
 .typing::after { content: '|'; animation: blink 0.7s infinite; }
 @keyframes blink { 50% { opacity: 0; } }
 
-/* ABOUT ME */
-.about-header {
-  text-align: center;
-  margin-bottom: 32px;
-}
-.about-header span {
-  font-family: var(--title-font);
-  font-size: 3.1rem;
-  font-weight: 700;
-  color: var(--purple-light);
-  letter-spacing: 4px;
-  text-transform: uppercase;
-}
-
-.about-section {
-  background: linear-gradient(rgba(17, 18, 22, 0.88), rgba(17, 18, 22, 0.94)),
-              url('assets/image/bp_aboutme.webp') center/cover no-repeat;
-  border-radius: 24px;
-  padding: 85px 60px 75px;
-  max-width: 1100px;
-  margin: 0 auto;
-  border: 1px solid rgba(168, 85, 247, 0.25);
-  position: relative;
-  overflow: hidden;
-}
-
-.about-content {
-  display: flex;
-  align-items: flex-start;
-  gap: 55px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.about-avatar {
-  text-align: center;
-  flex-shrink: 0;
-}
-
-.about-avatar img {
-  width: 180px;
-  height: 180px;
-  border-radius: 20px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.75);
-}
-
-.about-avatar h2 {
-  font-family: Inter, system-ui, sans-serif;
-  font-size: 2.15rem;
-  font-weight: 600;
-  color: #ffffff !important;     /* BIAŁY - wymuszone */
-  margin-top: 22px;
-  margin-bottom: 0;
-}
-
-.about-text {
-  flex: 1;
-  min-width: 320px;
-}
-
-.about-section .role {
-  color: var(--purple-light);
-  font-size: 1.45rem;
-  margin-bottom: 38px;
-  font-weight: 500;
-}
-
-.about-section p {
-  font-size: 1.19rem;
-  line-height: 1.88;
-  color: var(--text-secondary);
-  margin-bottom: 26px;
-}
-
-/* PROJECTS */
+/* PROJECTS - KARUZELA */
 .section { padding: 130px 0; }
 .section h2 {
   font-family: var(--title-font);
@@ -178,53 +113,60 @@ body {
   text-align: center;
   color: var(--purple-light);
 }
-.section h2 span {
-  font-family: Inter, system-ui, sans-serif;
-  font-weight: 600;
-}
-
 .cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 40px;
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto;
+  height: 520px;
+}
+.carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  height: 100%;
+  position: relative;
 }
 .card {
   background: var(--card);
   border-radius: 24px;
   overflow: hidden;
-  transition: all .4s ease;
+  transition: all .6s cubic-bezier(0.4, 0, 0.2, 1);
   border: 1px solid rgba(168, 85, 247, 0.15);
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+  cursor: pointer;
 }
-.card:hover {
-  transform: translateY(-20px);
-  box-shadow: 0 30px 60px rgba(168, 85, 247, 0.25);
-  border-color: var(--purple);
+.card.main {
+  width: 420px;
+  height: 480px;
+  z-index: 3;
+  box-shadow: 0 30px 60px rgba(168, 85, 247, 0.35);
+  transform: scale(1.04);
 }
+.card.side {
+  width: 280px;
+  height: 380px;
+  opacity: 0.65;
+  transform: scale(0.88);
+  z-index: 2;
+}
+.card:hover { border-color: var(--purple); }
 .card-image {
-  height: 260px;
+  height: 65%;
   background: #111;
+  overflow: hidden;
 }
 .card-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  transition: transform 0.7s ease;
 }
-.card:hover .card-image img {
-  transform: scale(1.08);
-}
+.card.main .card-image img { transform: scale(1.03); }
+.card:hover .card-image img { transform: scale(1.15); }
+
 .card-content {
-  padding: 24px 28px 32px;
+  padding: 20px;
   text-align: center;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
 }
 .card-content h3 {
   font-family: var(--title-font);
@@ -238,6 +180,8 @@ body {
   border-radius: 9999px;
   font-size: 0.95rem;
   font-weight: 700;
+  display: inline-block;
+  margin: 12px 0;
 }
 .github-btn {
   color: var(--purple-light);
@@ -248,6 +192,106 @@ body {
 .github-btn:hover {
   color: #fff;
   transform: translateX(6px);
+}
+
+/* Progress Bar */
+.progress-container {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40%;
+  height: 4px;
+  background: rgba(168,85,247,0.2);
+  border-radius: 9999px;
+  overflow: hidden;
+  z-index: 10;
+}
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(to right, var(--purple), var(--purple-light));
+  width: 0%;
+  transition: width 10s linear;
+}
+
+/* Arrows */
+.nav-arrows {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 40px;
+  z-index: 10;
+  pointer-events: none;
+}
+.nav-arrows button {
+  pointer-events: all;
+  background: rgba(0,0,0,0.65);
+  border: none;
+  color: white;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  font-size: 1.6rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.nav-arrows button:hover {
+  background: var(--purple);
+  transform: scale(1.08);
+}
+
+/* ABOUT ME */
+.about-header { text-align: center; margin-bottom: 32px; }
+.about-header span {
+  font-family: var(--title-font);
+  font-size: 3.1rem;
+  font-weight: 700;
+  color: var(--purple-light);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+.about-section {
+  background: linear-gradient(rgba(17, 18, 22, 0.88), rgba(17, 18, 22, 0.94)),
+              url('assets/image/bp_aboutme.webp') center/cover no-repeat;
+  border-radius: 24px;
+  padding: 85px 60px 75px;
+  max-width: 1100px;
+  margin: 0 auto;
+  border: 1px solid rgba(168, 85, 247, 0.25);
+}
+.about-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 55px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.about-avatar { text-align: center; flex-shrink: 0; }
+.about-avatar img {
+  width: 180px; height: 180px;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.75);
+}
+.about-avatar h2 {
+  font-size: 2.15rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-top: 22px;
+}
+.about-text { flex: 1; min-width: 320px; }
+.about-section .role {
+  color: var(--purple-light);
+  font-size: 1.45rem;
+  margin-bottom: 38px;
+  font-weight: 500;
+}
+.about-section p {
+  font-size: 1.19rem;
+  line-height: 1.88;
+  color: var(--text-secondary);
+  margin-bottom: 26px;
 }
 
 /* FOOTER */
@@ -263,12 +307,15 @@ body {
 @media(max-width:768px) {
   .about-content { gap: 40px; flex-direction: column; align-items: center; }
   .about-avatar img { width: 150px; height: 150px; }
+  .card.main { width: 340px; height: 420px; }
+  .card.side { width: 220px; height: 310px; }
+  .progress-container { width: 70%; }
 }
 </style>
 </head>
 <body>
 
-  <nav class="navbar">
+  <nav class="navbar" id="navbar">
     <div class="navbar-inner">
       <div class="nav-links">
         <a href="#home" class="active">HOME</a>
@@ -291,37 +338,15 @@ body {
     <section id="projects" class="section">
       <h2>Featured Packs <span>&amp;</span> Assets</h2>
       <div class="cards">
-        <div class="card">
-          <div class="card-image">
-            <img src="https://picsum.photos/600/600?random=1" alt="Project One">
-          </div>
-          <div class="card-content">
-            <h3>Project One</h3>
-            <span class="free-badge">FREE</span>
-            <a href="#" class="github-btn">GitHub →</a>
-          </div>
+        <div class="carousel" id="carousel"></div>
+        
+        <div class="nav-arrows">
+          <button id="prevBtn">←</button>
+          <button id="nextBtn">→</button>
         </div>
-
-        <div class="card">
-          <div class="card-image">
-            <img src="https://picsum.photos/600/600?random=2" alt="Project Skibdi">
-          </div>
-          <div class="card-content">
-            <h3>Project Skibdi</h3>
-            <span class="free-badge">FREE</span>
-            <a href="#" class="github-btn">GitHub →</a>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-image">
-            <img src="https://picsum.photos/600/600?random=3" alt="Project 67">
-          </div>
-          <div class="card-content">
-            <h3>Project 67</h3>
-            <span class="free-badge">FREE</span>
-            <a href="#" class="github-btn">GitHub →</a>
-          </div>
+        
+        <div class="progress-container">
+          <div class="progress-bar" id="progressBar"></div>
         </div>
       </div>
     </section>
@@ -337,10 +362,8 @@ body {
             <img src="https://visage.surgeplay.com/face/NeweeR" alt="Qalweren">
             <h2>MC: NeweeR</h2>
           </div>
-
           <div class="about-text">
             <p class="role">Technical Artist &amp; Asset Developer</p>
-            
             <p>Hi, I'm Qalweren. I specialize in custom models, textures, mobs, and resource packs. With over 6 years of experience creating vanilla-style assets and developing smaller Polish Minecraft servers, I combine creative and technical expertise to deliver high-quality content.</p>
             <p>I focus on creating custom vanilla-style assets that combine visual quality, functionality, and performance. Feel free to check out my projects!</p>
           </div>
@@ -357,21 +380,20 @@ body {
   </footer>
 
   <script>
+    // Typing Effect
     const texts = ["Welcome to my portfolio!", "Minecraft Technical Artist", "Nexo & CraftEngine Specialist", "Production-Ready Assets", "Optimized Custom Content"];
-    let currentIndex = 0, isDeleting = false, charIndex = 0, currentText = '';
+    let currentIndex = 0, isDeleting = false, charIndex = 0;
     const typingElement = document.getElementById('typing-text');
 
     function type() {
       const fullText = texts[currentIndex];
       if (isDeleting) {
-        currentText = fullText.substring(0, charIndex - 1);
+        typingElement.textContent = fullText.substring(0, charIndex - 1);
         charIndex--;
       } else {
-        currentText = fullText.substring(0, charIndex + 1);
+        typingElement.textContent = fullText.substring(0, charIndex + 1);
         charIndex++;
       }
-      typingElement.textContent = currentText;
-
       let speed = 50;
       if (!isDeleting && charIndex === fullText.length) { speed = 1800; isDeleting = true; }
       else if (isDeleting && charIndex === 0) { isDeleting = false; currentIndex = (currentIndex + 1) % texts.length; speed = 400; }
@@ -379,17 +401,106 @@ body {
     }
     setTimeout(type, 800);
 
-    document.querySelectorAll('.nav-links a').forEach(link => {
-      link.addEventListener('click', e => {
-        e.preventDefault();
-        document.querySelectorAll('.nav-links a').forEach(x => x.classList.remove('active'));
-        link.classList.add('active');
-        const target = document.querySelector(link.getAttribute('href'));
-        if (target) {
-          const navH = document.querySelector('.navbar').offsetHeight;
-          window.scrollTo({ top: target.offsetTop - navH - 25, behavior: 'smooth' });
+    // Carousel
+    const projects = [
+      { title: "Project One", img: "https://picsum.photos/600/600?random=1" },
+      { title: "Project Skibdi", img: "https://picsum.photos/600/600?random=2" },
+      { title: "Project 67", img: "https://picsum.photos/600/600?random=3" },
+      { title: "Custom Mobs Pack", img: "https://picsum.photos/600/600?random=4" },
+      { title: "Resource Pack v2", img: "https://picsum.photos/600/600?random=5" }
+    ];
+
+    let current = 0;
+    let timer;
+    const carousel = document.getElementById('carousel');
+    const progressBar = document.getElementById('progressBar');
+
+    function resetProgress() {
+      progressBar.style.transition = 'none';
+      progressBar.style.width = '0%';
+      setTimeout(() => {
+        progressBar.style.transition = 'width 10s linear';
+        progressBar.style.width = '100%';
+      }, 50);
+    }
+
+    function renderCarousel() {
+      carousel.innerHTML = `
+        <div class="card side" data-index="${(current - 1 + projects.length) % projects.length}">
+          <div class="card-image"><img src="${projects[(current - 1 + projects.length) % projects.length].img}" alt=""></div>
+          <div class="card-content"><h3>${projects[(current - 1 + projects.length) % projects.length].title}</h3></div>
+        </div>
+        
+        <div class="card main" data-index="${current}">
+          <div class="card-image"><img src="${projects[current].img}" alt=""></div>
+          <div class="card-content">
+            <h3>${projects[current].title}</h3>
+            <span class="free-badge">FREE</span>
+            <a href="#" class="github-btn">GitHub →</a>
+          </div>
+        </div>
+        
+        <div class="card side" data-index="${(current + 1) % projects.length}">
+          <div class="card-image"><img src="${projects[(current + 1) % projects.length].img}" alt=""></div>
+          <div class="card-content"><h3>${projects[(current + 1) % projects.length].title}</h3></div>
+        </div>
+      `;
+
+      document.querySelectorAll('.card.side').forEach(card => {
+        card.addEventListener('click', () => {
+          current = parseInt(card.dataset.index);
+          renderCarousel();
+          resetProgress();
+          startAutoSlide();
+        });
+      });
+    }
+
+    function startAutoSlide() {
+      clearInterval(timer);
+      timer = setInterval(() => {
+        current = (current + 1) % projects.length;
+        renderCarousel();
+        resetProgress();
+      }, 10000);
+    }
+
+    document.getElementById('nextBtn').addEventListener('click', () => {
+      current = (current + 1) % projects.length;
+      renderCarousel();
+      resetProgress();
+      startAutoSlide();
+    });
+
+    document.getElementById('prevBtn').addEventListener('click', () => {
+      current = (current - 1 + projects.length) % projects.length;
+      renderCarousel();
+      resetProgress();
+      startAutoSlide();
+    });
+
+    // Init
+    renderCarousel();
+    resetProgress();
+    startAutoSlide();
+
+    // Active nav + shrink
+    window.addEventListener('scroll', () => {
+      const sections = ['home', 'projects', 'about'];
+      let currentSection = 'home';
+      
+      sections.forEach(id => {
+        const section = document.getElementById(id);
+        if (section && scrollY >= section.offsetTop - 200) {
+          currentSection = id;
         }
       });
+
+      document.querySelectorAll('.nav-links a').forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === `#${currentSection}`);
+      });
+
+      document.getElementById('navbar').classList.toggle('shrink', scrollY > 80);
     });
   </script>
 </body>
