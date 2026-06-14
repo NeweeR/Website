@@ -4,10 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Qalweren | Minecraft Technical Artist</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-
 <style>
 :root{
   --bg: #121315;
@@ -36,18 +34,8 @@ body {
 
 /* ANIMACJE WEJŚCIOWE */
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(60px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.fade-in-up {
-  animation: fadeInUp 0.9s ease forwards;
+  from { opacity: 0; transform: translateY(60px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* NAVBAR */
@@ -155,7 +143,7 @@ body {
   margin: 0 auto 28px;
 }
 
-/* PROJECTS */
+/* PROJECTS - NOWE KWADRATOWE KARTY */
 .section { padding: 130px 0; }
 .section h2 {
   font-family: var(--title-font);
@@ -164,30 +152,90 @@ body {
   margin-bottom: 80px;
   text-align: center;
   color: var(--purple-light);
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s ease;
-}
-.section h2.visible {
-  opacity: 1;
-  transform: translateY(0);
 }
 .section h2 span {
   font-family: Inter, system-ui, sans-serif;
   font-weight: 600;
 }
 
-/* Karty z opóźnieniem */
-.card {
-  background: var(--card); padding:38px 32px; border-radius:20px;
-  transition: all .4s ease; 
-  border: 1px solid rgba(168, 85, 247, 0.12);
-  opacity: 0;
-  transform: translateY(40px);
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 40px;
 }
-.card.visible {
-  opacity: 1;
-  transform: translateY(0);
+
+.card {
+  background: var(--card);
+  border-radius: 24px;
+  overflow: hidden;
+  transition: all .4s ease;
+  border: 1px solid rgba(168, 85, 247, 0.15);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  transform: translateY(-20px);
+  box-shadow: 0 30px 60px rgba(168, 85, 247, 0.25);
+  border-color: var(--purple);
+}
+
+.card-image {
+  height: 260px;
+  background: #111;
+  position: relative;
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.card:hover .card-image img {
+  transform: scale(1.08);
+}
+
+.card-content {
+  padding: 24px 28px 32px;
+  text-align: center;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.card-content h3 {
+  font-family: var(--title-font);
+  font-size: 1.55rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.free-badge {
+  background: rgba(74, 222, 128, 0.15);
+  color: #4ade80;
+  padding: 6px 22px;
+  border-radius: 9999px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.github-btn {
+  color: var(--purple-light);
+  text-decoration: none;
+  font-weight: 600;
+  transition: all .3s;
+}
+
+.github-btn:hover {
+  color: #fff;
+  transform: translateX(6px);
 }
 
 /* FOOTER */
@@ -233,9 +281,38 @@ body {
     <section id="projects" class="section">
       <h2>Featured Packs <span>&amp;</span> Assets</h2>
       <div class="cards">
-        <div class="card"><h3>Project One</h3></div>
-        <div class="card"><h3>Project Skibdi</h3></div>
-        <div class="card"><h3>Project 67</h3></div>
+        <div class="card">
+          <div class="card-image">
+            <img src="https://picsum.photos/600/600?random=1" alt="Project One">
+          </div>
+          <div class="card-content">
+            <h3>Project One</h3>
+            <span class="free-badge">FREE</span>
+            <a href="#" class="github-btn">GitHub →</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-image">
+            <img src="https://picsum.photos/600/600?random=2" alt="Project Skibdi">
+          </div>
+          <div class="card-content">
+            <h3>Project Skibdi</h3>
+            <span class="free-badge">FREE</span>
+            <a href="#" class="github-btn">GitHub →</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-image">
+            <img src="https://picsum.photos/600/600?random=3" alt="Project 67">
+          </div>
+          <div class="card-content">
+            <h3>Project 67</h3>
+            <span class="free-badge">FREE</span>
+            <a href="#" class="github-btn">GitHub →</a>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -243,7 +320,7 @@ body {
       <div class="about-section">
         <h2>QALWEREN</h2>
         <p class="role">Technical Artist &amp; Asset Developer</p>
-        
+       
         <p>Hi, I'm Qalweren. I specialize in creating optimized, production-ready custom items, blocks, mechanics, and entities specifically tailored for Nexo and CraftEngine.</p>
         <p>My goal is to help server owners elevate their gameplay experience with high-quality, seamless custom content without sacrificing server performance.</p>
       </div>
@@ -293,22 +370,6 @@ body {
           window.scrollTo({ top: target.offsetTop - navH - 25, behavior: 'smooth' });
         }
       });
-    });
-
-    // Scroll Animations
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, { threshold: 0.1 });
-
-    // Obserwuj sekcje
-    document.querySelectorAll('.section h2').forEach(el => observer.observe(el));
-    document.querySelectorAll('.card').forEach((card, index) => {
-      card.style.transitionDelay = `${index * 150}ms`;
-      observer.observe(card);
     });
   </script>
 </body>
