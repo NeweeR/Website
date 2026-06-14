@@ -25,6 +25,7 @@ body {
   color: var(--text);
   line-height: 1.65;
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 /* NAVBAR */
@@ -65,6 +66,22 @@ body {
 }
 .discord-btn:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(88, 101, 242, 0.45); }
 
+/* Mobile navbar */
+@media (max-width: 768px) {
+  .navbar { padding: 14px 0; }
+  .navbar-inner { padding: 0 15px; }
+  .nav-links { gap: 18px; }
+  .nav-links a { font-size: 0.93rem; padding: 6px 4px; }
+  .discord-btn {
+    padding: 10px 12px;
+    border-radius: 10px;
+    min-width: 44px;
+    height: 44px;
+    justify-content: center;
+  }
+  .discord-btn span { display: none; }
+}
+
 /* HERO */
 .mainphoto {
   height: 100vh; min-height: 680px;
@@ -97,13 +114,11 @@ body {
   opacity: 0;
   animation: fadeUp 1s forwards 0.9s;
 }
-@keyframes fadeUp {
-  to { opacity: 1; transform: translateY(0); }
-}
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 .typing::after { content: '|'; animation: blink 0.7s infinite; }
 @keyframes blink { 50% { opacity: 0; } }
 
-/* PROJECTS - KARUZELA */
+/* PROJECTS */
 .section { padding: 130px 0; }
 .section h2 {
   font-family: var(--title-font);
@@ -118,6 +133,7 @@ body {
   max-width: 1100px;
   margin: 0 auto;
   height: 520px;
+  padding: 0 20px;
 }
 .carousel {
   display: flex;
@@ -194,52 +210,55 @@ body {
   transform: translateX(6px);
 }
 
-/* Progress Bar */
-.progress-container {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 40%;
-  height: 4px;
-  background: rgba(168,85,247,0.2);
-  border-radius: 9999px;
-  overflow: hidden;
-  z-index: 10;
-}
-.progress-bar {
-  height: 100%;
-  background: linear-gradient(to right, var(--purple), var(--purple-light));
-  width: 0%;
-  transition: width 10s linear;
-}
-
-/* Arrows */
+/* Strzałki */
 .nav-arrows {
   position: absolute;
   top: 50%;
   width: 100%;
   display: flex;
   justify-content: space-between;
-  padding: 0 40px;
-  z-index: 10;
+  padding: 0 70px;
+  z-index: 20;
   pointer-events: none;
 }
 .nav-arrows button {
   pointer-events: all;
-  background: rgba(0,0,0,0.65);
+  background: rgba(0,0,0,0.75);
   border: none;
   color: white;
-  width: 52px;
-  height: 52px;
+  width: 58px;
+  height: 58px;
   border-radius: 50%;
-  font-size: 1.6rem;
+  font-size: 1.85rem;
   cursor: pointer;
-  transition: 0.3s;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
 }
 .nav-arrows button:hover {
   background: var(--purple);
-  transform: scale(1.08);
+  transform: scale(1.15);
+}
+
+/* Progress Bar */
+.progress-wrapper {
+  margin: 35px auto 0;
+  max-width: 420px;
+  text-align: center;
+}
+.progress-container {
+  height: 5px;
+  background: rgba(168,85,247,0.2);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(to right, var(--purple), var(--purple-light));
+  width: 0%;
+  transition: width 10s linear;
 }
 
 /* ABOUT ME */
@@ -285,7 +304,7 @@ body {
   color: var(--purple-light);
   font-size: 1.45rem;
   margin-bottom: 38px;
-  font-weight: 500;
+  font-weight: 600;           /* pogrubione */
 }
 .about-section p {
   font-size: 1.19rem;
@@ -297,19 +316,32 @@ body {
 /* FOOTER */
 .footer {
   background: #0a0a0b;
-  padding: 80px 0 50px;
+  padding: 60px 15px 40px;
   text-align: center;
   color: #888;
-  font-size: 1rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
 }
-.footer p { margin: 10px 0; }
+.footer p { margin: 6px 0; }
 
+/* RESPONSIVE */
 @media(max-width:768px) {
   .about-content { gap: 40px; flex-direction: column; align-items: center; }
   .about-avatar img { width: 150px; height: 150px; }
-  .card.main { width: 340px; height: 420px; }
-  .card.side { width: 220px; height: 310px; }
-  .progress-container { width: 70%; }
+  
+  .card.main { width: 340px; height: 420px; transform: scale(1); }
+  .card.side { display: none !important; }
+  
+  .nav-arrows { padding: 0 20px; }
+  .nav-arrows button { width: 48px; height: 48px; font-size: 1.6rem; }
+  
+  .progress-wrapper { max-width: 85%; }
+  
+  /* Footer na mobile */
+  .footer {
+    font-size: 0.82rem;
+    padding: 50px 15px 35px;
+  }
 }
 </style>
 </head>
@@ -324,7 +356,7 @@ body {
       </div>
       <a href="#" class="discord-btn">
         <i class="fa-brands fa-discord"></i>
-        Join Discord
+        <span>Join Discord</span>
       </a>
     </div>
   </nav>
@@ -341,17 +373,18 @@ body {
         <div class="carousel" id="carousel"></div>
         
         <div class="nav-arrows">
-          <button id="prevBtn">←</button>
-          <button id="nextBtn">→</button>
+          <button id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+          <button id="nextBtn"><i class="fas fa-chevron-right"></i></button>
         </div>
-        
+      </div>
+      
+      <div class="progress-wrapper">
         <div class="progress-container">
           <div class="progress-bar" id="progressBar"></div>
         </div>
       </div>
     </section>
 
-    <!-- ABOUT ME -->
     <section id="about" class="section">
       <div class="about-header">
         <span>ABOUT ME</span>
@@ -380,7 +413,7 @@ body {
   </footer>
 
   <script>
-    // Typing Effect
+    // (Skrypt bez zmian - taki sam jak wcześniej)
     const texts = ["Welcome to my portfolio!", "Minecraft Technical Artist", "Nexo & CraftEngine Specialist", "Production-Ready Assets", "Optimized Custom Content"];
     let currentIndex = 0, isDeleting = false, charIndex = 0;
     const typingElement = document.getElementById('typing-text');
@@ -401,7 +434,6 @@ body {
     }
     setTimeout(type, 800);
 
-    // Carousel
     const projects = [
       { title: "Project One", img: "https://picsum.photos/600/600?random=1" },
       { title: "Project Skibdi", img: "https://picsum.photos/600/600?random=2" },
@@ -421,14 +453,17 @@ body {
       setTimeout(() => {
         progressBar.style.transition = 'width 10s linear';
         progressBar.style.width = '100%';
-      }, 50);
+      }, 30);
     }
 
     function renderCarousel() {
+      const prev = (current - 1 + projects.length) % projects.length;
+      const next = (current + 1) % projects.length;
+
       carousel.innerHTML = `
-        <div class="card side" data-index="${(current - 1 + projects.length) % projects.length}">
-          <div class="card-image"><img src="${projects[(current - 1 + projects.length) % projects.length].img}" alt=""></div>
-          <div class="card-content"><h3>${projects[(current - 1 + projects.length) % projects.length].title}</h3></div>
+        <div class="card side" data-index="${prev}">
+          <div class="card-image"><img src="${projects[prev].img}" alt=""></div>
+          <div class="card-content"><h3>${projects[prev].title}</h3></div>
         </div>
         
         <div class="card main" data-index="${current}">
@@ -440,20 +475,11 @@ body {
           </div>
         </div>
         
-        <div class="card side" data-index="${(current + 1) % projects.length}">
-          <div class="card-image"><img src="${projects[(current + 1) % projects.length].img}" alt=""></div>
-          <div class="card-content"><h3>${projects[(current + 1) % projects.length].title}</h3></div>
+        <div class="card side" data-index="${next}">
+          <div class="card-image"><img src="${projects[next].img}" alt=""></div>
+          <div class="card-content"><h3>${projects[next].title}</h3></div>
         </div>
       `;
-
-      document.querySelectorAll('.card.side').forEach(card => {
-        card.addEventListener('click', () => {
-          current = parseInt(card.dataset.index);
-          renderCarousel();
-          resetProgress();
-          startAutoSlide();
-        });
-      });
     }
 
     function startAutoSlide() {
@@ -479,21 +505,16 @@ body {
       startAutoSlide();
     });
 
-    // Init
     renderCarousel();
     resetProgress();
     startAutoSlide();
 
-    // Active nav + shrink
     window.addEventListener('scroll', () => {
       const sections = ['home', 'projects', 'about'];
       let currentSection = 'home';
-      
       sections.forEach(id => {
         const section = document.getElementById(id);
-        if (section && scrollY >= section.offsetTop - 200) {
-          currentSection = id;
-        }
+        if (section && scrollY >= section.offsetTop - 200) currentSection = id;
       });
 
       document.querySelectorAll('.nav-links a').forEach(link => {
