@@ -107,9 +107,10 @@ body {
   flex-direction:column;
   text-align:center;
   background: 
-    linear-gradient(rgba(18,19,21,0.65), rgba(18,19,21,0.85)),
-    <img src="assets/image/bp_mainphoto.webp" alt="MainPhoto">
+    linear-gradient(rgba(18,19,21,0.68), rgba(18,19,21,0.88)),
+    url('assets/image/bp_mainphoto.webp') center/cover no-repeat fixed;
   position: relative;
+  overflow: hidden;
 }
 .mainphoto::before {
   content: '';
@@ -191,7 +192,7 @@ body {
 @media(max-width:768px) {
   .navbar-inner { flex-direction:column; gap:24px; }
   .nav-links { gap:28px; }
-  .hero h1 { font-size: 62px; }
+  .mainphoto h1 { font-size: 62px; }
   .section { padding: 90px 0; }
   .about { padding: 55px 35px; }
 }
@@ -210,7 +211,7 @@ body {
     </div>
   </nav>
 
-  <section id="home" class="hero">
+  <section id="home" class="mainphoto">
     <h1>CUSTOM123</h1>
     <p>Technical Artist &nbsp;•&nbsp; Asset Developer for Nexo &amp; CraftEngine</p>
   </section>
